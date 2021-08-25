@@ -11,4 +11,8 @@ This is our second class assignment but our *first* one using R.
 
     ## [1] 4
 
+<u>underline</u>  
+**bold**  
+*italics*
+
 Submission by **Zabrenna Griffiths**
