@@ -1,0 +1,37 @@
+---
+title: "R Notebook"
+output: github_document
+---
+
+Loading packages needed:
+```{r setup_workspace, message= FALSE}
+library(tidyverse)
+library(ggplot2)
+```
+
+Reading in data file and quickly checking it:
+```{r}
+jam_covid<-read.csv("coronavirus_jamaica.csv")
+head(jam_covid)
+```
+
+```{r}
+jam_covid$Date <- as.Date(jam_covid$Date, format="%m/%d/%y")
+```
+
+Plot of Daily Covid Case Count in Jamaica:
+The bar graph below shows the daily incidence of Covid-19 cases over the month of August 2021. This dataset was obtained from the Ministry of Health (MOH) monitoring program.  
+```{r}
+covid_plot<-ggplot(data=jam_covid, aes(x = Date, y = New_Cases)) +
+  geom_bar(stat = "identity") +
+  scale_x_date(breaks = jam_covid$Date) +
+  theme(axis.text.x = element_text(angle = 90, size=5)) +
+  xlab("Dates") +
+  ylab("Number of New Cases") +
+  ggtitle("Covid-19 Cases in Jamaica - August 2021")
+covid_plot  
+```
+
+
+This graph shows an alarming trend where daily Covid-19 cases are increasing quickly over a month period. If this trend continues, then eventually our healthcare system will overburdened. 
+
