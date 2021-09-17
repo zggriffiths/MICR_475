@@ -59,4 +59,4 @@ flight_plot
 
     ## Warning: Removed 782 rows containing missing values (geom_point).
 
-![](hw_4_files/figure-gfm/unnamed-chunk-5-1.png)<!-- -->
+![](hw_4_files/figure-gfm/unnamed-chunk-6-1.png)<!-- -->
