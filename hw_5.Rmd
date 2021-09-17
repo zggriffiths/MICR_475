@@ -1,0 +1,64 @@
+---
+title: "HW 5"
+output: github_document
+author: Zabrenna Griffiths
+---
+```{r}
+#library(diamonds)
+library(ggplot2)
+library(tidyverse)
+library(dplyr)
+```
+
+1. Print a data frame that contains the simple count of diamonds in each “cut” (“Fair”, “Good”, etc.).
+```{r}
+diamonds %>% count(cut)
+```
+
+2. The diamonds data set is reasonably big, which is a bit of a pain. Use dplyr functions to create a that contains 1% of the rows of diamonds, randomly sub-setted.
+```{r}
+random_sampling <- sample_frac(diamonds, 0.01)
+random_sampling
+```
+
+3. Calculate the average size of the 100 largest diamonds in each clarity category.
+```{r}
+top_100 <- diamonds %>% 
+  group_by(clarity) %>%
+  slice_max(carat, n= 100) %>%
+  summarise(mean(carat))
+top_100
+```
+
+4. Make two scatter plots:
+* plot of the x dimension vs the y dimension
+```{r}
+ggplot(data=diamonds, aes(x=x, y=y)) +
+  geom_point() 
+  # xlim(3,11) +
+  # ylim(0,20)
+```
+
+* plot of the x dimension vs the z dimension
+```{r}
+ggplot(data=diamonds, aes(x=x, y=z)) +
+  geom_point()
+```
+
+5. Note that x, y, and z here refer to the length, width, and depth of the diamond in mm. Are there any data points that you find suspicious? If so: create a new data frame, with these questionable points removed.
+```{r}
+diamonds2 <- diamonds %>% 
+  filter(x <= 10 & x >3 & y <= 20 & y > 2.5 & z <= 10 & z >2)
+```
+
+#### Creating New Plots To Visualize Data After Removing Outliers
+```{r}
+ggplot(data=diamonds2, aes(x=x, y=y)) +
+  geom_point()
+```
+
+```{r}
+ggplot(data=diamonds2, aes(x=x, y=z)) +
+  geom_point() 
+```
+
