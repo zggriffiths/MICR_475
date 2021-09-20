@@ -3,23 +3,9 @@ HW 5
 Zabrenna Griffiths
 
 ``` r
-#library(diamonds)
+# library(diamonds)
 library(ggplot2)
 library(tidyverse)
-```
-
-    ## ── Attaching packages ─────────────────────────────────────── tidyverse 1.3.1 ──
-
-    ## ✓ tibble  3.1.4     ✓ dplyr   1.0.7
-    ## ✓ tidyr   1.1.3     ✓ stringr 1.4.0
-    ## ✓ readr   2.0.1     ✓ forcats 0.5.1
-    ## ✓ purrr   0.3.4
-
-    ## ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
-    ## x dplyr::filter() masks stats::filter()
-    ## x dplyr::lag()    masks stats::lag()
-
-``` r
 library(dplyr)
 ```
 
@@ -51,16 +37,16 @@ random_sampling
     ## # A tibble: 539 × 10
     ##    carat cut       color clarity depth table price     x     y     z
     ##    <dbl> <ord>     <ord> <ord>   <dbl> <dbl> <int> <dbl> <dbl> <dbl>
-    ##  1  0.71 Premium   J     SI2      60.7    59  1609  5.75  5.71  3.48
-    ##  2  0.51 Ideal     G     VVS2     61.6    56  1974  5.17  5.12  3.17
-    ##  3  0.31 Ideal     F     VS2      62.2    56   583  4.36  4.39  2.72
-    ##  4  0.74 Ideal     D     VS2      61.9    56  3087  5.84  5.79  3.6 
-    ##  5  0.86 Ideal     E     SI2      60      56  3478  6.22  6.24  3.74
-    ##  6  0.33 Ideal     E     VVS2     60      56   970  4.53  4.56  2.72
-    ##  7  0.36 Ideal     E     SI1      62.4    55   810  4.58  4.55  2.85
-    ##  8  0.82 Fair      F     SI2      56.7    70  2508  6.28  6.16  3.53
-    ##  9  0.38 Very Good H     SI1      60.1    57   662  4.73  4.75  2.85
-    ## 10  0.7  Good      F     VS1      57.8    61  2751  5.83  5.79  3.36
+    ##  1  0.4  Very Good E     SI2      63.1    57   798  4.72  4.7   2.97
+    ##  2  1.21 Premium   D     SI2      62.5    57  6505  6.79  6.71  4.22
+    ##  3  1.39 Very Good G     SI2      61.5    62  6628  7.09  7.16  4.38
+    ##  4  1.17 Premium   G     VS1      62.4    56  7564  6.81  6.75  4.23
+    ##  5  1.3  Premium   I     VS2      62.7    58  6246  6.97  6.9   4.35
+    ##  6  0.9  Very Good F     VS2      62.7    58  5160  6.12  6.19  3.86
+    ##  7  1    Good      E     SI1      57.2    62  5345  6.59  6.56  3.76
+    ##  8  0.7  Premium   F     SI1      61.5    57  2354  5.74  5.68  3.51
+    ##  9  2.14 Premium   I     VS2      59.3    59 15418  8.39  8.43  5   
+    ## 10  1.21 Good      J     VS2      61      64  5096  6.89  6.79  4.17
     ## # … with 529 more rows
 
 3.  Calculate the average size of the 100 largest diamonds in each

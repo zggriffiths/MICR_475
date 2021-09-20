@@ -3,8 +3,9 @@ title: "HW 5"
 output: github_document
 author: Zabrenna Griffiths
 ---
-```{r}
-#library(diamonds)
+
+```{r message= FALSE, warning= FALSE}
+# library(diamonds)
 library(ggplot2)
 library(tidyverse)
 library(dplyr)
