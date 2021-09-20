@@ -3,9 +3,6 @@ title: "HW 4"
 output: github_document
 author: Zabrenna Griffiths
 ---
-```{r message=FALSE, warning=FALSE}
-```
-
 
 1.
 ```{r}
@@ -22,7 +19,7 @@ answer
 ```
 
 3.
-```{r}
+```{r message= FALSE, warning= FALSE}
 # loading packages needed
 library(nycflights13)
 library(tidyverse)
