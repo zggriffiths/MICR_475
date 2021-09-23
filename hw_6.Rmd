@@ -5,10 +5,7 @@ author: Zabrenna Griffiths
 ---
 
 ## Successful plot
-
-```{r}
-![](MICR_475/hw_6_images/goodplot.png)
-```
+![](hw_6_images/goodplot.png)
 Source: Laothamteep, Natthariga, et al. “Effects of Environmental Factors and Coexisting Substrates on Pah Degradation and Transcriptomic Responses of the Defined Bacterial Consortium Opk.” Environmental Pollution, 2021.   
 
 The data named "Days" is mapped to the x axis and is a discrete variable in this case.
@@ -16,9 +13,7 @@ The data named "% PAH Remaining" is mapped to the y axis (different colours repr
 The data are displayed using both points (with error bars) and lines. 
 
 ## Unsuccesful plot
-```{r}
-![](MICR_475/hw_6_images/badplot.png) 
-```
+![](hw_6_images/badplot.png)
 Source: World Health Organization. WHO-convened Global Study of Origins of SARS-CoV-2: China Part, 2021
 
 This is a pie chart so there's no x variable.
