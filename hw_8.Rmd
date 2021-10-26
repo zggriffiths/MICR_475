@@ -1,0 +1,143 @@
+---
+title: "HW 8"
+output: github_document
+author: Zabrenna Griffiths
+---
+
+# Question 1
+Using the diamonds data set, make a data frame that shows the slope of the relationship of price as a function of weight (carat) for each unique color, in decreasing order of slope
+
+How does price change for with weight/carat for each diamond color?
+```{r message=FALSE, warning=FALSE}
+library(tidyverse)
+library(modelr)
+library(purrr)
+```
+
+```{r message=FALSE, warning=FALSE}
+by_color <- diamonds %>% 
+  group_by(color) %>% 
+  nest()
+
+# Function to create a linear model of price as a function of weight (carat) 
+price_for_carat <- function(df) {
+  m<- lm(price ~ carat, data = df)
+  m
+}
+# summary(price_for_carat)
+
+# Applying function to by color database 
+by_color <- by_color %>% 
+  mutate(fit = map(data, price_for_carat))
+
+# Making function to extract slope
+getslope <- function(fit_obj) {
+  slope <- coef(fit_obj)[2]
+  slope
+}
+
+# Applying this to dataframe
+by_color <- by_color %>% 
+  mutate(slope = map_dbl(fit, getslope))
+
+fit <- unnest(by_color, data)
+head(fit)
+
+# Plot predictions vs carat for each color
+ggplot(fit, aes(x=carat, y=price)) +
+  geom_point() +
+  geom_smooth(method = "lm", se = FALSE) +
+  facet_wrap(~color)
+```
+
+# Question 2 
+The DNase dataset in the datasets package (which automatically loads when you load R) has examples of ELISA band optical density as a function of protein concentration, for 12 different runs. These relationships are clearly nonlinear (please plot density as a function of conc to see for yourself!).
+```{r}
+library(nls2)
+```
+
+```{r}
+DNase %>%
+  ggplot(aes(conc, density)) + geom_point()
+```
+
+Non-linear Least Squares Model:
+```{r}
+nls_mod <- formula(density ~ beta_1 * sqrt(conc) + beta_0)
+
+single_sqrt_model <- function(DNase) {
+  nls2(nls_mod, 
+  data = DNase, 
+  start = list(beta_1 = 0.53, beta_0 = 0.19))
+}
+```
+
+Monod Model:
+```{r}
+monod_eq <- formula(density ~ (conc * dmax) / (conc + k))
+
+monod_model <-  function(DNase) {
+  nls2(monod_eq, 
+  data = DNase, 
+  start = list(dmax = 0.09, k = 1.12))
+}
+```
+
+Your assignment is to use list-columns to create a separate square root model and monod model for density as a function of concentration, for each Run
+```{r}
+# Sorting out by run and making nested df
+by_run <- DNase %>% 
+  group_by(Run) %>% 
+  nest()
+```
+
+```{r}
+# Applying Square Root Model to df
+ssrt <-  by_run %>% 
+  mutate(model = map(data, single_sqrt_model))
+                     
+glance_ssrt <- ssrt %>% 
+  mutate(glance = map(model, broom::glance)) %>% 
+  unnest(glance)
+
+glance_ssrt %>%
+  group_by(Run) %>%
+  arrange(AIC) %>%
+  head()
+```
+
+```{r}
+# Applying Monod Model to df
+mnd <-  by_run %>% 
+  mutate(model = map(data, monod_model))
+                     
+glance_mnd <- mnd %>% 
+  mutate(glance = map(model, broom::glance)) %>% 
+  unnest(glance)
+
+glance_mnd %>%
+  group_by(Run) %>%
+  arrange(AIC) %>%
+  head()
+```
+
+The Monod model has lower AIC values than the Square-root model. Therefore, the Monod model is a better fit to the data.
+```{r message=FALSE, warning=FALSE}
+library(cowplot)
+
+p1 <- ggplot(glance_mnd, aes(x = Run, y = AIC)) +
+  geom_col() +
+  scale_y_reverse() +
+  scale_x_discrete(limits=c("1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11")) + 
+  ggtitle("AIC Values - Monod Model")
+
+p2 <- ggplot(glance_ssrt, aes(x = Run, y = AIC)) +
+  geom_col() +
+  scale_y_reverse() +
+  scale_x_discrete(limits=c("1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11")) + 
+  ggtitle("AIC Values - Square Root Model")
+
+plot_grid(p1, p2)
+```
+
+
